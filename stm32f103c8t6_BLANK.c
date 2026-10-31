@@ -1,44 +1,45 @@
+//ä¿®æ”¹startup Device å®å®šä¹‰ ä»£ç ä¸­PEæ”¹ç”¨PC æˆåŠŸé€‚é…C8T6å®ç°é—ªçƒ
 #include "./SYSTEM/sys/sys.h"
 #include "./SYSTEM/usart/usart.h"
 #include "./SYSTEM/delay/delay.h"
 
-void led_init(void);                       /* LED³õÊ¼»¯º¯ÊıÉùÃ÷ */
+void led_init(void);                       /* LEDåˆå§‹åŒ–å‡½æ•°å£°æ˜ */
 
 int main(void)
 {
-    HAL_Init();                              /* ³õÊ¼»¯HAL¿â */
-    sys_stm32_clock_init(RCC_PLL_MUL9);      /* ÉèÖÃÊ±ÖÓ, 72Mhz */
-    delay_init(72);                          /* ÑÓÊ±³õÊ¼»¯ */
-    led_init();                              /* LED³õÊ¼»¯ */
+    HAL_Init();                              /* åˆå§‹åŒ–HALåº“ */
+    sys_stm32_clock_init(RCC_PLL_MUL9);      /* è®¾ç½®æ—¶é’Ÿ, 72Mhz */
+    delay_init(72);                          /* å»¶æ—¶åˆå§‹åŒ– */
+    led_init();                              /* LEDåˆå§‹åŒ– */
     
     while(1)
     { 
-        HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);    /* PB5ÖÃ1 */ 
-        HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);  /* PE5ÖÃ0 */ 
+        HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_SET);    /* PB5ç½®1 */ 
+        HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);  /* PC5ç½®0 */ 
         delay_ms(500);
-        HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_RESET);  /* PB5ÖÃ0 */
-        HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);    /* PE5ÖÃ1 */
+        HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,GPIO_PIN_RESET);  /* PB5ç½®0 */
+        HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);    /* PC5ç½®1 */
         delay_ms(500); 
     }
 }
 
 /**
- * @brief       ³õÊ¼»¯LEDÏà¹ØIO¿Ú, ²¢Ê¹ÄÜÊ±ÖÓ
- * @param       ÎŞ
- * @retval      ÎŞ
+ * @brief       åˆå§‹åŒ–LEDç›¸å…³IOå£, å¹¶ä½¿èƒ½æ—¶é’Ÿ
+ * @param       æ— 
+ * @retval      æ— 
  */
 void led_init(void)
 {
     GPIO_InitTypeDef gpio_initstruct;
-    __HAL_RCC_GPIOB_CLK_ENABLE();                          /* IO¿ÚPBÊ±ÖÓÊ¹ÄÜ */
-    __HAL_RCC_GPIOC_CLK_ENABLE();                          /* IO¿ÚPEÊ±ÖÓÊ¹ÄÜ */
+    __HAL_RCC_GPIOB_CLK_ENABLE();                          /* IOå£PBæ—¶é’Ÿä½¿èƒ½ */
+    __HAL_RCC_GPIOC_CLK_ENABLE();                          /* IOå£PCæ—¶é’Ÿä½¿èƒ½ */
 
-    gpio_initstruct.Pin = GPIO_PIN_5;                      /* LED0Òı½Å */
-    gpio_initstruct.Mode = GPIO_MODE_OUTPUT_PP;            /* ÍÆÍìÊä³ö */
-    gpio_initstruct.Pull = GPIO_PULLUP;                    /* ÉÏÀ­ */
-    gpio_initstruct.Speed = GPIO_SPEED_FREQ_HIGH;          /* ¸ßËÙ */
-    HAL_GPIO_Init(GPIOB, &gpio_initstruct);                /* ³õÊ¼»¯LED0Òı½Å */
+    gpio_initstruct.Pin = GPIO_PIN_5;                      /* LED0å¼•è„š */
+    gpio_initstruct.Mode = GPIO_MODE_OUTPUT_PP;            /* æ¨æŒ½è¾“å‡º */
+    gpio_initstruct.Pull = GPIO_PULLUP;                    /* ä¸Šæ‹‰ */
+    gpio_initstruct.Speed = GPIO_SPEED_FREQ_HIGH;          /* é«˜é€Ÿ */
+    HAL_GPIO_Init(GPIOB, &gpio_initstruct);                /* åˆå§‹åŒ–LED0å¼•è„š */
 
-    gpio_initstruct.Pin = GPIO_PIN_13;                      /* LED1Òı½Å */
-    HAL_GPIO_Init(GPIOC, &gpio_initstruct);                /* ³õÊ¼»¯LED1Òı½Å */
+    gpio_initstruct.Pin = GPIO_PIN_13;                      /* LED1å¼•è„š */
+    HAL_GPIO_Init(GPIOC, &gpio_initstruct);                /* åˆå§‹åŒ–LED1å¼•è„š */
 }
