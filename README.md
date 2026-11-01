@@ -1,1 +1,1 @@
-# project
+GPIO:initialization settings&using
